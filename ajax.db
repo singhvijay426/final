@@ -1,0 +1,51 @@
+USE [student]
+GO
+
+/****** Object:  Table [dbo].[productinfo1]    Script Date: 9/19/2017 11:52:37 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[productinfo1](
+	[productid] [int] IDENTITY(1,1) NOT NULL,
+	[productname] [nvarchar](50) NULL,
+	[price] [nvarchar](50) NULL
+) ON [PRIMARY]
+
+GO
+
+
+
+
+CREATE PROCEDURE CrudOperations 
+@productid int = 0, 
+@productname varchar(50)=null, 
+@price int=0, 
+@status varchar(50) 
+AS 
+BEGIN 
+SET NOCOUNT ON; 
+--- Insert New Records 
+IF @status='INSERT' 
+BEGIN 
+INSERT INTO productinfo1(productname,price) VALUES(@productname,@price) 
+END 
+--- Select Records in Table 
+IF @status='SELECT' 
+BEGIN 
+SELECT productid,productname,price FROM productinfo1 
+END 
+--- Update Records in Table  
+IF @status='UPDATE' 
+BEGIN 
+UPDATE productinfo1 SET productname=@productname,price=@price WHERE productid=@productid 
+END 
+--- Delete Records from Table 
+IF @status='DELETE' 
+BEGIN 
+DELETE FROM productinfo1 where productid=@productid 
+END 
+SET NOCOUNT OFF 
+END
