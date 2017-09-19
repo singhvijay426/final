@@ -1,0 +1,117 @@
+USE [student]
+GO
+
+/****** Object:  Table [dbo].[Student_Data]    Script Date: 9/19/2017 6:21:08 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Student_Data](
+	[Student_Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](50) NULL,
+	[Course] [nvarchar](50) NULL,
+	[Semester] [nvarchar](50) NULL,
+	[University] [nvarchar](50) NULL,
+	[EmailAddress] [nvarchar](50) NULL,
+	[Password] [nvarchar](50) NULL
+) ON [PRIMARY]
+
+GO
+
+
+USE [student]
+GO
+/****** Object:  StoredProcedure [dbo].[select_student]    Script Date: 9/19/2017 6:21:28 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ 
+ALTER PROCEDURE [dbo].[select_student]
+AS
+BEGIN
+	select * from Student_Data
+END
+
+USE [student]
+GO
+/****** Object:  StoredProcedure [dbo].[select_student_by_name]    Script Date: 9/19/2017 6:21:51 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ 
+ALTER PROCEDURE [dbo].[select_student_by_name]
+	@Student_Id int
+AS
+	
+BEGIN
+	select * from Student_Data where Student_Id=@Student_Id
+END
+
+
+USE [student]
+GO
+/****** Object:  StoredProcedure [dbo].[student_delete]    Script Date: 9/19/2017 6:22:06 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ 
+ALTER PROCEDURE [dbo].[student_delete]
+	@Student_Id int
+AS
+	
+BEGIN
+	delete from Student_Data where Student_Id=@Student_Id
+END
+
+
+
+USE [student]
+GO
+/****** Object:  StoredProcedure [dbo].[student_insert]    Script Date: 9/19/2017 6:22:21 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ 
+ALTER PROCEDURE [dbo].[student_insert]
+	@Name varchar(30) = '',
+	@Course varchar(50) = '',
+	@Semester varchar(20) = '',
+	@University varchar(50) = '',
+	@EmailAddress varchar(50) = '',
+	@Password varchar(50) = ''
+AS
+	
+BEGIN
+	insert into Student_Data(Name,Course,Semester,University, EmailAddress, [Password])
+	values (@Name,@Course,@Semester,@University,@EmailAddress,@Password)
+END
+
+
+USE [student]
+GO
+/****** Object:  StoredProcedure [dbo].[student_update]    Script Date: 9/19/2017 6:22:36 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ 
+ALTER PROCEDURE [dbo].[student_update]
+	@Student_Id int,
+	@Name varchar(30) = '',
+	@Course varchar(50) = '',
+	@Semester varchar(20) = '',
+	@University varchar(50) = '',
+	@EmailAddress varchar(50) = '',
+	@Password varchar(50) = ''	
+AS
+	
+BEGIN
+	update Student_Data set Name=@Name,Course=@Course,Semester=@Semester,University=@University,EmailAddress=@EmailAddress,[Password]=@Password
+	where Student_Id=@Student_Id
+END
